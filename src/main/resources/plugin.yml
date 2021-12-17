@@ -1,0 +1,27 @@
+name: Energy
+version: 1.0
+main: com.github.longboyy.energy.EnergyPlugin
+api-version: 1.16
+depend: [CivModCore, BanStick, NameLayer]
+softdepend: [Votifier]
+author: [Longboyy, Maxopoly]
+commands:
+  vote:
+    permission: energy.public
+    description: "Lists all voting websites"
+    usage: "/vote"
+    min-args: 0
+    max-args: 0
+    player-only: true
+  energy:
+    permission: energy.public
+    description: "View how much energy you have stored"
+    usage: "/energy"
+    min-args: 0
+    max-args: 1
+    player-only: true
+permissions:
+  energy.public:
+    default: true
+  energy.op:
+    default: op

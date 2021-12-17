@@ -1,0 +1,31 @@
+energy_item:
+  energy:
+    material: ENCHANTED_GOLDEN_APPLE
+    name: Energy
+    amount: 1
+    lore:
+      - Used in factory recipes, also fuels pearls.
+
+exiled:
+  reward: true
+  multiplier: 0.8
+pearled:
+  reward: true
+  multiplier: 0.5
+
+death_loss:
+  loss_multiplier: 0.1
+  ban_below_zero: 30m
+  ban_message: "You ran out of energy!"
+
+login:
+  cooldown_period: 1d
+  multiplier: 2
+
+voting:
+  sites:
+    voting_site_1:
+      url: ""
+      name: ""
+      cooldown: 20h
+      multiplier: 1
