@@ -8,17 +8,26 @@ import vg.civcraft.mc.civmodcore.ACivMod;
 
 public class EnergyPlugin extends ACivMod {
 
+	public static boolean isBanstickEnabled() {
+		return banstickEnabled;
+	}
+
+	private static boolean banstickEnabled = false;
+
     private static EnergyPlugin instance;
-    public static EnergyPlugin getInstance(){
-        return instance;
-    }
+	public static EnergyPlugin getInstance(){
+		return instance;
+	}
 
-    private EnergyConfigManager configManager;
-    private EnergyManager energyManager;
-    private VoteManager voteManager;
+	private EnergyConfigManager configManager;
+	private EnergyManager energyManager;
 
-    private VoteListener voteListener;
-    private EnergyListener energyListener;
+	private EnergyCommandManager commandManager;
+	private VoteManager voteManager;
+
+	private VoteListener voteListener;
+	private EnergyListener energyListener;
+
 
     @Override
     public void onEnable() {
@@ -32,6 +41,10 @@ public class EnergyPlugin extends ACivMod {
             return;
         }
 
+		if(Bukkit.getPluginManager().isPluginEnabled("BanStick")){
+			banstickEnabled = true;
+		}
+
         energyManager = new EnergyManager(this);
 
         if(Bukkit.getPluginManager().isPluginEnabled("Votifier")){
@@ -44,6 +57,8 @@ public class EnergyPlugin extends ACivMod {
         }
 
         energyListener = new EnergyListener(this);
+		commandManager = new EnergyCommandManager(this);
+
         Bukkit.getPluginManager().registerEvents(energyListener, this);
     }
 

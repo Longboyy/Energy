@@ -1,8 +1,6 @@
 package com.github.longboyy.energy.listeners;
 
-import com.github.longboyy.energy.EnergyPlugin;
 import com.github.longboyy.energy.vote.VoteManager;
-import com.github.longboyy.energy.vote.VotingSite;
 import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 import org.bukkit.Bukkit;
@@ -10,12 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import vg.civcraft.mc.civmodcore.playersettings.PlayerSettingAPI;
-import vg.civcraft.mc.civmodcore.playersettings.impl.LongSetting;
 import vg.civcraft.mc.namelayer.NameAPI;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class VoteListener implements Listener {

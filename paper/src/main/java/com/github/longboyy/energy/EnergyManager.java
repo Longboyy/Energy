@@ -3,10 +3,9 @@ package com.github.longboyy.energy;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import vg.civcraft.mc.civmodcore.playersettings.PlayerSettingAPI;
-import vg.civcraft.mc.civmodcore.playersettings.impl.DoubleSetting;
-import vg.civcraft.mc.civmodcore.playersettings.impl.IntegerSetting;
-import vg.civcraft.mc.civmodcore.playersettings.impl.LongSetting;
+import vg.civcraft.mc.civmodcore.players.settings.PlayerSettingAPI;
+import vg.civcraft.mc.civmodcore.players.settings.impl.DoubleSetting;
+import vg.civcraft.mc.civmodcore.players.settings.impl.LongSetting;
 
 public class EnergyManager {
 
@@ -14,7 +13,7 @@ public class EnergyManager {
     private final LongSetting loginTimeSetting;
 
     public EnergyManager(EnergyPlugin plugin){
-        energyStoreSetting = new DoubleSetting(plugin, 0D, "Player energy store", "energyPlayerStore", new ItemStack(Material.STONE), null);
+        energyStoreSetting = new DoubleSetting(plugin, plugin.getConfigManager().getDefaultEnergyAmount(), "Player energy store", "energyPlayerStore", new ItemStack(Material.STONE), null);
         PlayerSettingAPI.registerSetting(energyStoreSetting, null);
 
         loginTimeSetting = new LongSetting(plugin, 0L, "Player login reward", "energyLoginTime");

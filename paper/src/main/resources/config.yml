@@ -29,3 +29,7 @@ voting:
       name: ""
       cooldown: 20h
       multiplier: 1
+
+misc:
+  withdrawLimitThreshold: 10
+  defaultEnergyAmount: 10

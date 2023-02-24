@@ -5,9 +5,9 @@ import com.vexsoftware.votifier.model.Vote;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import vg.civcraft.mc.civmodcore.playersettings.PlayerSettingAPI;
-import vg.civcraft.mc.civmodcore.playersettings.impl.LongSetting;
-import vg.civcraft.mc.civmodcore.util.TextUtil;
+import vg.civcraft.mc.civmodcore.players.settings.PlayerSettingAPI;
+import vg.civcraft.mc.civmodcore.players.settings.impl.LongSetting;
+import vg.civcraft.mc.civmodcore.utilities.TextUtil;
 
 import java.util.HashMap;
 import java.util.Map;

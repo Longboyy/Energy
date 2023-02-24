@@ -2,6 +2,7 @@ package com.github.longboyy.energy.listeners;
 
 import com.github.longboyy.energy.EnergyManager;
 import com.github.longboyy.energy.EnergyPlugin;
+
 import com.programmerdan.minecraft.banstick.handler.BanHandler;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -14,7 +15,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
-import vg.civcraft.mc.civmodcore.itemHandling.ItemMap;
+import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
+import vg.civcraft.mc.civmodcore.inventory.items.ItemUtils;
 
 import java.util.*;
 
@@ -31,9 +33,14 @@ public class EnergyListener implements Listener {
         Player player = event.getPlayer();
         ItemStack eatenItem = event.getItem();
         ItemStack energyItem = plugin.getConfigManager().getEnergyItemStack();
+		if(!ItemUtils.areItemsSimilar(eatenItem, energyItem)){
+			return;
+		}
+		/*
         if(!energyItem.getType().isEdible() || eatenItem.getType() != energyItem.getType()){
             return;
         }
+		 */
 
         event.setCancelled(true);
 
@@ -89,7 +96,7 @@ public class EnergyListener implements Listener {
                     + ChatColor.GREEN + " Energy");
         }else{
             energyManager.setEnergy(player, 0D);
-            if(plugin.getConfigManager().isDeathBanEnabled()){
+            if(plugin.getConfigManager().isDeathBanEnabled() && EnergyPlugin.isBanstickEnabled()){
                 // ban the player using banstick
                 Date date = new Date(System.currentTimeMillis() + plugin.getConfigManager().getDeathBanTime());
                 BanHandler.doUUIDBan(player.getUniqueId(), plugin.getConfigManager().getDeathBanMessage(), date, false);

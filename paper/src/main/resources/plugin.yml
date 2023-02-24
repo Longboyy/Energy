@@ -2,8 +2,8 @@ name: Energy
 version: 1.0
 main: com.github.longboyy.energy.EnergyPlugin
 api-version: 1.16
-depend: [CivModCore, BanStick, NameLayer]
-softdepend: [Votifier]
+depend: [CivModCore]
+softdepend: [Votifier, BanStick]
 author: [Longboyy, Maxopoly]
 commands:
   vote:

@@ -1,5 +1,6 @@
-# Created by https://www.gitignore.io/api/java,linux,macos,maven,batch,windows,eclipse,intellij+all
-# Edit at https://www.gitignore.io/?templates=java,linux,macos,maven,batch,windows,eclipse,intellij+all
+
+# Created by https://www.gitignore.io/api/java,batch,linux,macos,maven,windows,eclipse,intellij+all
+# Edit at https://www.gitignore.io/?templates=java,batch,linux,macos,maven,windows,eclipse,intellij+all
 
 ### Batch ###
 # BatchFiles
@@ -8,6 +9,7 @@
 *.btm
 
 ### Eclipse ###
+
 .metadata
 bin/
 tmp/
@@ -102,6 +104,8 @@ local.properties
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+.gradle
+build
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -110,8 +114,6 @@ local.properties
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
-# *.iml
-# *.ipr
 
 # CMake
 cmake-build-*/
@@ -158,9 +160,6 @@ fabric.properties
 modules.xml
 .idea/misc.xml
 *.ipr
-
-# Sonarlint plugin
-.idea/sonarlint
 
 ### Java ###
 # Compiled class file
@@ -241,12 +240,10 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
-.flattened-pom.xml
 
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
-Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 
@@ -269,4 +266,23 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/java,linux,macos,maven,batch,windows,eclipse,intellij+all
+<<<<<<< HEAD
+# End of https://www.gitignore.io/api/java,batch,linux,macos,maven,windows,intellij+all
+
+
+#Eclipse stuff
+/target/
+.classpath
+.settings/**
+.project
+/logs/
+dependency-reduced-pom.xml
+/target/
+
+/bin/
+=======
+# End of https://www.gitignore.io/api/java,batch,linux,macos,maven,windows,eclipse,intellij+all
+>>>>>>> civclassic/master
+
+!gradle-wrapper.jar
+!gradlew.bat

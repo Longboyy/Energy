@@ -4,15 +4,15 @@ import com.github.longboyy.energy.vote.VotingSite;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import vg.civcraft.mc.civmodcore.ACivMod;
-import vg.civcraft.mc.civmodcore.CoreConfigManager;
-import vg.civcraft.mc.civmodcore.itemHandling.ItemMap;
-import vg.civcraft.mc.civmodcore.util.ConfigParsing;
+import vg.civcraft.mc.civmodcore.config.ConfigHelper;
+import vg.civcraft.mc.civmodcore.config.ConfigParser;
+import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnergyConfigManager extends CoreConfigManager {
+public class EnergyConfigManager extends ConfigParser {
 
     private ItemMap energyItem;
     private ItemStack energyItemStack;
@@ -29,6 +29,8 @@ public class EnergyConfigManager extends CoreConfigManager {
     private long deathBanTime;
     private double deathLossMultiplier;
     private String deathBanMessage;
+	private double withdrawLimitThreshold;
+	private double defaultEnergyAmount;
 
     public EnergyConfigManager(ACivMod plugin) {
         super(plugin);
@@ -36,7 +38,7 @@ public class EnergyConfigManager extends CoreConfigManager {
 
     @Override
     protected boolean parseInternal(ConfigurationSection config){
-        energyItem = ConfigParsing.parseItemMap(config.getConfigurationSection("energy_item"));
+        energyItem = ConfigHelper.parseItemMap(config.getConfigurationSection("energy_item"));
         /*
             I don't know why you can't grab an ItemStack from an item map, but this is literally the easiest
             and cleanest method I could come up with to get the one and only item in the ItemMap parsed from config
@@ -54,14 +56,14 @@ public class EnergyConfigManager extends CoreConfigManager {
         if(deathLossEnabled){
             ConfigurationSection deathSection = config.getConfigurationSection("death_loss");
             deathLossMultiplier = deathSection.getDouble("loss_multiplier", 0.1D);
-            deathBanTime = deathSection.isString("ban_below_zero") ? ConfigParsing.parseTime(deathSection.getString("ban_below_zero")) : 0L;
+            deathBanTime = deathSection.isString("ban_below_zero") ? ConfigHelper.parseTime(deathSection.getString("ban_below_zero")) : 0L;
             deathBanMessage = deathSection.getString("ban_message", "");
         }
 
         loginRewardEnabled = config.isConfigurationSection("login");
         if(loginRewardEnabled) {
             ConfigurationSection loginSection = config.getConfigurationSection("login");
-            loginRewardDelay = ConfigParsing.parseTime(loginSection.getString("cooldown_period"));
+            loginRewardDelay = ConfigHelper.parseTime(loginSection.getString("cooldown_period"));
             loginMultiplier = loginSection.getDouble("multiplier");
         }
 
@@ -72,7 +74,7 @@ public class EnergyConfigManager extends CoreConfigManager {
             for(String key : votingSection.getKeys(false)){
                 if(votingSection.isConfigurationSection(key)){
                     ConfigurationSection current = votingSection.getConfigurationSection(key);
-                    long votingCooldown = ConfigParsing.parseTime(current.getString("cooldown", "20h"));
+                    long votingCooldown = ConfigHelper.parseTime(current.getString("cooldown", "20h"));
                     String votingUrl = current.getString("url");
                     String name = current.getString("name");
                     double multiplier = current.getDouble("multiplier", 1.0d);
@@ -87,6 +89,10 @@ public class EnergyConfigManager extends CoreConfigManager {
         ConfigurationSection pearlSection = config.getConfigurationSection("pearled");
         rewardPearled = pearlSection.getBoolean("reward");
         pearledMultiplier = pearlSection.getDouble("multiplier");
+
+		ConfigurationSection miscSection = config.getConfigurationSection("misc");
+		withdrawLimitThreshold = miscSection.getDouble("withdrawLimitThreshold");
+		defaultEnergyAmount = miscSection.getDouble("defaultEnergyAmount");
 
         return true;
     }
@@ -156,4 +162,11 @@ public class EnergyConfigManager extends CoreConfigManager {
     }
 
 
+	public double getWithdrawLimitThreshold() {
+		return withdrawLimitThreshold;
+	}
+
+	public double getDefaultEnergyAmount() {
+		return defaultEnergyAmount;
+	}
 }

@@ -1,10 +1,11 @@
 package com.github.longboyy.energy.commands;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Description;
 import com.github.longboyy.energy.EnergyPlugin;
 import com.github.longboyy.energy.vote.VoteManager;
 import com.github.longboyy.energy.vote.VotingSite;
-import net.kyori.adventure.audience.MessageType;
-import net.kyori.adventure.identity.Identity;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -12,17 +13,14 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import vg.civcraft.mc.civmodcore.command.CivCommand;
-import vg.civcraft.mc.civmodcore.command.StandaloneCommand;
-import vg.civcraft.mc.civmodcore.util.TextUtil;
+import vg.civcraft.mc.civmodcore.utilities.TextUtil;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
-@CivCommand(id = "vote")
-public class VoteCommand extends StandaloneCommand {
-    @Override
+public class VoteCommand extends BaseCommand {
+    @CommandAlias("vote")
+	@Description("Lists all voting websites")
     public boolean execute(CommandSender sender, String[] strings) {
         VoteManager voteMan = EnergyPlugin.getInstance().getVoteManager();
         if (voteMan == null) {
@@ -50,10 +48,5 @@ public class VoteCommand extends StandaloneCommand {
             }
         }
         return true;
-    }
-
-    @Override
-    public List<String> tabComplete(CommandSender commandSender, String[] strings) {
-        return Collections.emptyList();
     }
 }

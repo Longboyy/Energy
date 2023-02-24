@@ -1,22 +1,23 @@
 package com.github.longboyy.energy.commands;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Description;
 import com.github.longboyy.energy.EnergyPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import vg.civcraft.mc.civmodcore.command.CivCommand;
-import vg.civcraft.mc.civmodcore.command.StandaloneCommand;
-import vg.civcraft.mc.civmodcore.itemHandling.ItemMap;
+import vg.civcraft.mc.civmodcore.inventory.items.ItemMap;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-@CivCommand(id = "energy")
-public class EnergyCommand extends StandaloneCommand {
+public class EnergyCommand extends BaseCommand {
 
-    @Override
+    @CommandAlias("energy")
+	@Description("View how much energy you have stored")
     public boolean execute(CommandSender sender, String[] args){
         Player player = (Player)sender;
 
@@ -30,6 +31,11 @@ public class EnergyCommand extends StandaloneCommand {
                 player.sendMessage(ChatColor.GREEN + "You don't have enough Energy to do that!");
                 return true;
             }
+
+			if((EnergyPlugin.getInstance().getEnergyManager().getEnergy(player) - withdrawAmount) < EnergyPlugin.getInstance().getConfigManager().getWithdrawLimitThreshold()){
+				player.sendMessage(ChatColor.GREEN + "You can't go below the withdraw threshold!");
+				return true;
+			}
 
             ItemMap energyMap = EnergyPlugin.getInstance().getConfigManager().getEnergyItem().clone();
             energyMap.multiplyContent(withdrawAmount);
@@ -59,10 +65,6 @@ public class EnergyCommand extends StandaloneCommand {
         }
 
         return true;
-    }
-
-    public List<String> tabComplete(CommandSender commandSender, String[] strings) {
-        return Collections.emptyList();
     }
 
     private int parseInt(String input){
